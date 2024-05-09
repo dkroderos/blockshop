@@ -40,7 +40,8 @@ public static class GetBlocks
                 : blocksQuery.OrderBy(keySelector);
 
             var blockResponsesQuery = blocksQuery
-                .Select(b => new BlockResponse(b.Id, b.Name, b.Description, b.Price, b.CreatedAt, b.LastUpdatedAt));
+                .Select(b =>
+                    new BlockResponse(b.Id, b.CreatorId, b.Name, b.Description, b.Price, b.CreatedAt, b.LastUpdatedAt));
 
             var blocks = await PagedList<BlockResponse>.CreateAsync(
                 blockResponsesQuery,

@@ -1,6 +1,7 @@
 ﻿using BlockShop.Api.Contracts;
 using BlockShop.Api.Data;
 using BlockShop.Api.Entities;
+using BlockShop.Api.Extensions;
 using BlockShop.Api.Shared;
 using Carter;
 using FluentValidation;
@@ -26,7 +27,10 @@ public static class CreateBlock
         }
     }
 
-    internal sealed class Handler(ApplicationDbContext context, IValidator<Command> validator)
+    internal sealed class Handler(
+        ApplicationDbContext context,
+        IValidator<Command> validator,
+        IHttpContextAccessor httpContextAccessor)
         : IRequestHandler<Command, Result<Guid>>
     {
         public async Task<Result<Guid>> Handle(Command request, CancellationToken cancellationToken)
@@ -36,9 +40,14 @@ public static class CreateBlock
             if (!validationResult.IsValid)
                 return Result.Failure<Guid>(new Error("CreateBlock.Validation", validationResult.ToString()));
 
+            var userId = httpContextAccessor.HttpContext?.User.GetLoggedInUserId<string>();
+            if (userId is null || !Guid.TryParse(userId, out _))
+                return Result.Failure<Guid>(new Error("CreateBlock.NoCreator", "No creator found"));
+
             var block = new Block
             {
                 Id = Guid.NewGuid(),
+                CreatorId = Guid.Parse(userId),
                 Name = request.Name,
                 Description = request.Description,
                 Price = request.Price,
@@ -67,6 +76,7 @@ public class CreateBlockEndpoint : ICarterModule
 
                 return result.IsFailure ? Results.BadRequest(result.Error) : Results.Ok(result.Value);
             })
+            .RequireAuthorization()
             .WithTags(nameof(Block));
     }
 }
