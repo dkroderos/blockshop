@@ -12,3 +12,5 @@ public record BlockResponse(
     decimal Price,
     DateTimeOffset CreatedAt,
     DateTimeOffset LastUpdatedAt);
+
+public record UpdateBlockRequest(Guid Id, string Name, string Description);    
