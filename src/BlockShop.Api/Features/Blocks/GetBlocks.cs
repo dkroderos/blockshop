@@ -31,6 +31,8 @@ public static class GetBlocks
             Expression<Func<Block, object>> keySelector = request.SortColumn?.ToLower() switch
             {
                 "description" => block => block.Description,
+                "createdat" => block => (DateTime)(object)block.CreatedAt,
+                "lastupdatedat" => block => (DateTime)(object)block.LastUpdatedAt,
                 "price" => block => block.Price,
                 _ => block => block.Name
             };
