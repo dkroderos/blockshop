@@ -21,7 +21,7 @@ public static class GetBlock
             var blockResponse = await context
                 .Blocks
                 .Where(b => b.Id == request.Id)
-                .Select(b => new BlockResponse(b.Id, b.Name, b.Description, b.Price))
+                .Select(b => new BlockResponse(b.Id, b.Name, b.Description, b.Price, b.CreatedAt, b.LastUpdatedAt))
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (blockResponse is null)

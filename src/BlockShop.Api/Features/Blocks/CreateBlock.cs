@@ -41,7 +41,9 @@ public static class CreateBlock
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                Price = request.Price
+                Price = request.Price,
+                CreatedAt = DateTimeOffset.Now,
+                LastUpdatedAt = DateTimeOffset.Now,
             };
 
             context.Add(block);
