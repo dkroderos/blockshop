@@ -1,4 +1,5 @@
 ﻿// ReSharper disable All
+
 namespace BlockShop.Api.Shared;
 
 public class Result<TValue> : Result
