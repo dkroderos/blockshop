@@ -1,9 +1,11 @@
 using BlockShop.Api.Data;
 using BlockShop.Api.Extensions;
+using Carter;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,13 @@ builder.Services.AddCors();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var assembly = typeof(Program).Assembly;
+
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly));
+builder.Services.AddValidatorsFromAssembly(assembly);
+
+builder.Services.AddCarter();
+
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -38,13 +47,14 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
-app.MapIdentityApi<IdentityUser>();
-
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .SetIsOriginAllowed(_ => true)
     .AllowCredentials());
+
+app.MapIdentityApi<IdentityUser>();
+app.MapCarter();
 
 app.UseHttpsRedirection();
 
