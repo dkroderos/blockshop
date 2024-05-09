@@ -6,11 +6,11 @@ using Carter;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlockShop.Api.Features.Blocks;
+namespace BlockShop.Api.Features.Comments;
 
 // ReSharper disable UnusedType.Global
 
-public static class DeleteBlock
+public static class DeleteComment
 {
     public record Command(Guid Id) : IRequest<Result>;
 
@@ -21,24 +21,21 @@ public static class DeleteBlock
         {
             var userId = httpContextAccessor.HttpContext?.User.GetLoggedInUserId<string>();
             if (userId is null || !Guid.TryParse(userId, out _))
-                return Result.Failure(new Error("DeleteBlock.NoCreator", "No creator found"));
+                return Result.Failure(new Error("DeleteComment.NoCreator", "No creator found"));
 
-            var block = await context
-                .Blocks
+            var comment = await context
+                .Comments
                 .Where(b => b.Id == request.Id)
-                .Include(b => b.Comments)
                 .FirstOrDefaultAsync(cancellationToken);
 
-            if (block is null)
-                return Result.Failure(new Error("DeleteBlock.NotFound",
-                    "The block with the specified ID was not found"));
+            if (comment is null)
+                return Result.Failure(new Error("DeleteComment.NotFound",
+                    "The comment with the specified ID was not found"));
 
-            if (!block.CreatorId.Equals(Guid.Parse(userId)))
-                return Result.Failure(new Error("DeleteBlock.Forbidden", "The logged user does not own this block"));
+            if (!comment.CreatorId.Equals(Guid.Parse(userId)))
+                return Result.Failure(new Error("DeleteComment.Forbidden", "The logged user does not own this block"));
 
-            context.Comments.RemoveRange(block.Comments);
-
-            context.Blocks.Remove(block);
+            context.Comments.Remove(comment);
 
             await context.SaveChangesAsync(cancellationToken);
 
@@ -47,18 +44,18 @@ public static class DeleteBlock
     }
 }
 
-public class DeleteBlockEndpoint : ICarterModule
+public class DeleteCommentEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("blocks/{id:Guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("comments/{id:Guid}", async (Guid id, ISender sender) =>
             {
-                var query = new DeleteBlock.Command(id);
+                var query = new DeleteComment.Command(id);
                 var result = await sender.Send(query);
 
                 return result.IsFailure ? Results.BadRequest(result.Error) : Results.NoContent();
             })
             .RequireAuthorization()
-            .WithTags(nameof(Block));
+            .WithTags(nameof(Comment));
     }
 }
