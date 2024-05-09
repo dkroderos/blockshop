@@ -9,4 +9,5 @@ public class Block
     public required decimal Price { get; set; }
     public required DateTimeOffset CreatedAt { get; set; }
     public required DateTimeOffset LastUpdatedAt { get; set; }
+    public ICollection<Comment> Comments { get; set; } = [];
 }
