@@ -8,6 +8,7 @@ using FluentValidation;
 using Mapster;
 using MediatR;
 
+// ReSharper disable SuggestBaseTypeForParameterInConstructor
 // ReSharper disable UnusedType.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
