@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA3B166A-C02C-45E9-89DB-25D9A0FE5B90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockShop.Api", "BlockShop.Api\BlockShop.Api.csproj", "{3466A10A-AED9-4A90-875D-41A901C400F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockShop.Api", "src\BlockShop.Api\BlockShop.Api.csproj", "{AECA8918-5D77-43B1-AC07-C59097EF8684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,12 +10,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3466A10A-AED9-4A90-875D-41A901C400F7} = {AA3B166A-C02C-45E9-89DB-25D9A0FE5B90}
+		{AECA8918-5D77-43B1-AC07-C59097EF8684} = {AA3B166A-C02C-45E9-89DB-25D9A0FE5B90}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3466A10A-AED9-4A90-875D-41A901C400F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3466A10A-AED9-4A90-875D-41A901C400F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3466A10A-AED9-4A90-875D-41A901C400F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3466A10A-AED9-4A90-875D-41A901C400F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
