@@ -1,0 +1,124 @@
+﻿@page "/blocks"
+@model BlocksModel
+
+@{
+    ViewData["Title"] = "Blocks";
+}
+
+<h1>Blocks</h1>
+
+@if (await Model.IsLoggedInAsync())
+{
+    <a class="btn btn-primary mb-3" asp-page="/CreateBlock">Create Block</a>
+}
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var block in Model.Blocks)
+        {
+            <div class="col">
+                <div class="card">
+                    <img src="@block.Image" class="card-img-top" alt="Block Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@block.Name</h5>
+                        <p class="card-text">@block.Description</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Price: @block.Price</li>
+                        <li class="list-group-item">Buys: @block.NumberOfBuys</li>
+                        <li class="list-group-item">Created By: @await Model.GetUserEmailAsync(block.CreatorId)</li>
+                        <li class="list-group-item">Created At: @block.CreatedAt.ToString()</li>
+                    </ul>
+                    <div class="card-body">
+                        @if (await Model.LoggedUserOwnsItemAsync(block.CreatorId))
+                        {
+                            <form method="post">
+                                <input type="hidden" name="blockId" value="@block.Id"/>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        }
+                        @if (await Model.IsLoggedInAsync())
+                        {
+                            <form method="post" asp-page-handler="BuyBlock">
+                                <input type="hidden" name="blockId" value="@block.Id"/>
+                                <button type="submit" class="btn btn-success">Buy</button>
+                            </form>
+                        }
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#blockModal-@block.Id">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@foreach (var block in Model.Blocks)
+{
+    <div class="modal fade" id="blockModal-@block.Id" tabindex="-1" aria-labelledby="blockModalLabel-@block.Id" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blockModalLabel-@block.Id">@block.Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <!-- Display the image within a container to limit size -->
+                                <div class="text-center">
+                                    <img src="@block.Image" alt="Block Image" class="img-fluid rounded" style="max-width: 100%; max-height: 400px;"/> <!-- Added max-width and max-height -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h5>Name: @block.Name</h5>
+                                <p>Description: @block.Description</p>
+                                <p>Price: @block.Price</p>
+                                <p>Buys: @block.NumberOfBuys</p>
+
+                                @if (await Model.IsLoggedInAsync())
+                                {
+                                    <form method="post" asp-page-handler="AddComment" asp-route-blockId="@block.Id">
+                                        <div class="mb-3">
+                                            <label for="commentContent" class="form-label">Add Comment:</label>
+                                            <input type="text" class="form-control" id="commentContent" name="commentContent">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <h6>Comments:</h6>
+                    <ul class="list-group">
+                        @foreach (var blockComment in await Model.GetBlockCommentsAsync(block.Id))
+                        {
+                            <li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small>Commented By: @await Model.GetUserEmailAsync(blockComment.CreatorId)</small>
+                                </div>
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small>Commented At: @blockComment.CreatedAt.ToString()</small>
+                                </div>
+                                <p class="mb-1">@blockComment.Content</p>
+
+                                @if (await Model.LoggedUserOwnsItemAsync(blockComment.CreatorId))
+                                {
+                                    <form method="post" asp-page-handler="DeleteComment">
+                                        <input type="hidden" name="commentId" value="@blockComment.Id"/>
+                                        <button type="submit" class="btn btn-danger">Delete Comment</button>
+                                    </form>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
