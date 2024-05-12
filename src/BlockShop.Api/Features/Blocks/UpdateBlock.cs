@@ -43,8 +43,8 @@ public static class UpdateBlock
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (block is null)
-                return Result.Failure(new Error("UpdateBlock.NotFound",
-                    "The block with the specified ID was not found"));
+                return Result.Failure(
+                    new Error("UpdateBlock.NotFound", "The block with the specified ID was not found"));
 
             if (!block.CreatorId.Equals(Guid.Parse(userId)))
                 return Result.Failure(new Error("UpdateBlock.Forbidden", "The logged user does not own this block"));

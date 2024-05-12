@@ -16,7 +16,7 @@ namespace BlockShop.Api.Features.Blocks;
 
 public static class CreateBlock
 {
-    public record Command(string Name, string Description, decimal Price) : IRequest<Result<Guid>>;
+    public record Command(string Name, string Description, string Image, decimal Price) : IRequest<Result<Guid>>;
 
     public class Validator : AbstractValidator<Command>
     {
@@ -51,7 +51,9 @@ public static class CreateBlock
                 CreatorId = Guid.Parse(userId),
                 Name = request.Name,
                 Description = request.Description,
+                Image = request.Image,
                 Price = request.Price,
+                NumberOfBuys = 0,
                 CreatedAt = DateTimeOffset.Now,
                 LastUpdatedAt = DateTimeOffset.Now,
             };

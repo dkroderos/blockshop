@@ -22,7 +22,8 @@ public static class GetBlock
                 .Blocks
                 .Where(b => b.Id == request.Id)
                 .Select(b =>
-                    new BlockResponse(b.Id, b.CreatorId, b.Name, b.Description, b.Price, b.CreatedAt, b.LastUpdatedAt))
+                    new BlockResponse(b.Id, b.CreatorId, b.Name, b.Description, b.Image, b.Price, b.NumberOfBuys,
+                        b.CreatedAt, b.LastUpdatedAt))
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (blockResponse is null)

@@ -4,6 +4,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA3B166A-C02
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockShop.Api", "src\BlockShop.Api\BlockShop.Api.csproj", "{AECA8918-5D77-43B1-AC07-C59097EF8684}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockShop.Web", "src\BlockShop.Web\BlockShop.Web.csproj", "{C41900CC-9314-47EE-B9D6-862B1BBC2BB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +13,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AECA8918-5D77-43B1-AC07-C59097EF8684} = {AA3B166A-C02C-45E9-89DB-25D9A0FE5B90}
+		{C41900CC-9314-47EE-B9D6-862B1BBC2BB8} = {AA3B166A-C02C-45E9-89DB-25D9A0FE5B90}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AECA8918-5D77-43B1-AC07-C59097EF8684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41900CC-9314-47EE-B9D6-862B1BBC2BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41900CC-9314-47EE-B9D6-862B1BBC2BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41900CC-9314-47EE-B9D6-862B1BBC2BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41900CC-9314-47EE-B9D6-862B1BBC2BB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

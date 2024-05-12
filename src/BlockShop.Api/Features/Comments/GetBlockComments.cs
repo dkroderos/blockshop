@@ -12,7 +12,7 @@ namespace BlockShop.Api.Features.Comments;
 
 public static class GetBlockComments
 {
-    public record Query(Guid BlockId, string? SearchTerm, string? SortColumn, string? SortOrder, int Page, int PageSize)
+    public record Query(Guid BlockId, string? SearchTerm, string? SortColumn, string? SortOrder, int? Page, int? PageSize)
         : IRequest<Result<PagedList<CommentResponse>>>;
 
     internal sealed class Handler(ApplicationDbContext context)
@@ -45,8 +45,8 @@ public static class GetBlockComments
 
             var comments = await PagedList<CommentResponse>.CreateAsync(
                 commentResponsesQuery,
-                request.Page,
-                request.PageSize);
+                request.Page ?? 1,
+                request.PageSize ?? 10);
 
             return comments;
         }
@@ -58,7 +58,7 @@ public class GetBlockCommentsEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("blocks/{blockId:Guid}/comments",
-                async (Guid blockId, string? searchTerm, string? sortColumn, string? sortOrder, int page, int pageSize,
+                async (Guid blockId, string? searchTerm, string? sortColumn, string? sortOrder, int? page, int? pageSize,
                     ISender sender) =>
                 {
                     var query = new GetBlockComments.Query(blockId, searchTerm, sortColumn, sortOrder, page, pageSize);
@@ -66,6 +66,6 @@ public class GetBlockCommentsEndpoint : ICarterModule
 
                     return result.IsFailure ? Results.StatusCode(500) : Results.Ok(result.Value);
                 })
-            .WithTags(nameof(Comments));
+            .WithTags(nameof(Comment));
     }
 }

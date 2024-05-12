@@ -13,7 +13,7 @@ namespace BlockShop.Api.Features.Blocks;
 
 public static class GetBlocks
 {
-    public record Query(string? SearchTerm, string? SortColumn, string? SortOrder, int Page, int PageSize)
+    public record Query(string? SearchTerm, string? SortColumn, string? SortOrder, int? Page, int? PageSize)
         : IRequest<Result<PagedList<BlockResponse>>>;
 
     internal sealed class Handler(ApplicationDbContext context)
@@ -34,6 +34,7 @@ public static class GetBlocks
                 "createdat" => block => (DateTime)(object)block.CreatedAt,
                 "lastupdatedat" => block => (DateTime)(object)block.LastUpdatedAt,
                 "price" => block => block.Price,
+                "numberofbuys" => block => block.NumberOfBuys,
                 _ => block => block.Name
             };
 
@@ -43,12 +44,13 @@ public static class GetBlocks
 
             var blockResponsesQuery = blocksQuery
                 .Select(b =>
-                    new BlockResponse(b.Id, b.CreatorId, b.Name, b.Description, b.Price, b.CreatedAt, b.LastUpdatedAt));
+                    new BlockResponse(b.Id, b.CreatorId, b.Name, b.Description, b.Image, b.Price, b.NumberOfBuys,
+                        b.CreatedAt, b.LastUpdatedAt));
 
             var blocks = await PagedList<BlockResponse>.CreateAsync(
                 blockResponsesQuery,
-                request.Page,
-                request.PageSize);
+                request.Page ?? 1,
+                request.PageSize ?? 10);
 
             return blocks;
         }
@@ -60,7 +62,7 @@ public class GetBlocksEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("blocks",
-                async (string? searchTerm, string? sortColumn, string? sortOrder, int page, int pageSize,
+                async (string? searchTerm, string? sortColumn, string? sortOrder, int? page, int? pageSize,
                     ISender sender) =>
                 {
                     var query = new GetBlocks.Query(searchTerm, sortColumn, sortOrder, page, pageSize);
