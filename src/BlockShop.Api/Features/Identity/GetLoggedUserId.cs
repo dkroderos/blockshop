@@ -7,7 +7,7 @@ using MediatR;
 
 namespace BlockShop.Api.Features.Identity;
 
-public static class GetUserId
+public static class GetLoggedUserId
 {
     public record Query : IRequest<Result<string>>;
 
@@ -23,13 +23,13 @@ public static class GetUserId
     }
 }
 
-public class GetUserIdEndpoint : ICarterModule
+public class GetLoggedUserIdEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("user/id", async (ISender sender) =>
             {
-                var query = new GetUserId.Query();
+                var query = new GetLoggedUserId.Query();
                 var result = await sender.Send(query);
 
                 return result.IsFailure ? Results.NotFound(result.Error) : Results.Ok(result.Value);
