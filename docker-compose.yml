@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  blockshop.api:
+    image: ${DOCKER_REGISTRY-}blockshop.api
+    container_name: blockshop.api
+    build:
+      context: .
+      dockerfile: src/BlockShop.Api/Dockerfile
+    ports:
+      - "25625:25625"
+      - "25626:25626"
+    environment:
+      - ASPNETCORE_HTTP_PORTS=25625
+      - ASPNETCORE_HTTPS_PORTS=25626
+    volumes:
+      - ./.containers/db:/db
