@@ -77,9 +77,6 @@ public class BlocksModel(HttpClient httpClient) : PageModel
         var url = $"http://blockshop.api:25625/blocks/{blockId.ToString()}";
         await httpClient.DeleteAsync(url);
 
-        // var response = await httpClient.DeleteAsync(url);
-        // if (!response.IsSuccessStatusCode) ErrorMessage = response.StatusCode.ToString();
-
         return RedirectToPage();
     }
 
@@ -87,11 +84,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
     {
         var url = $"http://blockshop.api:25625/blocks/buy/{blockId.ToString()}";
         await httpClient.GetAsync(url);
-
-        // var response = await httpClient.DeleteAsync(url);
-        // if (!response.IsSuccessStatusCode)
-        //     return RedirectToPage();
-
+       
         return RedirectToPage();
     }
 
