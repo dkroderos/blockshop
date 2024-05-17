@@ -10,7 +10,7 @@ WORKDIR /src
 RUN mkdir /db
 COPY ["src/BlockShop.Api/BlockShop.Api.csproj", "./BlockShop.Api/"]
 RUN dotnet restore "./BlockShop.Api/BlockShop.Api.csproj"
-COPY . .
+COPY "src/" .
 WORKDIR "/src/BlockShop.Api"
 RUN dotnet build "./BlockShop.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

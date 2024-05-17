@@ -8,8 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/BlockShop.Web/BlockShop.Web.csproj", "./BlockShop.Web/"]
+COPY ["src/BlockShop.Api/BlockShop.Api.csproj", "./BlockShop.Api/"]
 RUN dotnet restore "./BlockShop.Web/BlockShop.Web.csproj"
-COPY . .
+COPY "src/" .
 WORKDIR "/src/BlockShop.Web"
 RUN dotnet build "./BlockShop.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
