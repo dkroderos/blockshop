@@ -9,9 +9,16 @@ public class _UserModel(HttpClient httpClient) : PageModel
 
     public async Task OnGetAsync()
     {
-        const string url = "http://localhost:25625/user/email";
-        var response = await httpClient.GetAsync(url);
-        if (response.IsSuccessStatusCode)
-            Email = await response.Content.ReadAsStringAsync();
+        try
+        {
+            const string url = "http://blockshop.api:25625/user/email";
+            var response = await httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+                Email = await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception ex)
+        {
+            var a = ex.Message;
+        }
     }
 }

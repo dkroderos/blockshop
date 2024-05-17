@@ -2,7 +2,7 @@
 
 <ul class="navbar-nav">
     @{
-        const string url = "http://localhost:25625/user/email";
+        const string url = "http://blockshop.api:25625/user/email";
         var response = await HttpClient.GetAsync(url);
         if (!response.IsSuccessStatusCode)
         {

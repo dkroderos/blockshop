@@ -12,6 +12,20 @@ services:
       - "25626:25626"
     environment:
       - ASPNETCORE_HTTP_PORTS=25625
-      - ASPNETCORE_HTTPS_PORTS=25626
+      - ASPNETCORE_HTTPS_PORTS=
     volumes:
       - ./.containers/db:/db
+  blockshop.web:
+    image: ${DOCKER_REGISTRY-}blockshop.web
+    container_name: blockshop.web
+    depends_on: 
+      - blockshop.api
+    build:
+      context: .
+      dockerfile: src/BlockShop.Web/Dockerfile
+    ports:
+      - "25627:25627"
+      - "25628:25628"
+    environment:
+      - ASPNETCORE_HTTP_PORTS=25627
+      - ASPNETCORE_HTTPS_PORTS=

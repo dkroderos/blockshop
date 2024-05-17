@@ -17,7 +17,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task OnGetAsync()
     {
-        const string url = "http://localhost:25625/blocks?pageSize=100&cortColumn=createdat";
+        const string url = "http://blockshop.api:25625/blocks?pageSize=100&cortColumn=createdat";
         var request = await httpClient.GetAsync(url);
         if (!request.IsSuccessStatusCode) return;
 
@@ -34,7 +34,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
     {
         if (!await IsLoggedInAsync()) return RedirectToPage();
 
-        const string url = "http://localhost:25625/comments";
+        const string url = "http://blockshop.api:25625/comments";
         var jsonBody = $$"""
                          {
                             "blockId": "{{blockId.ToString()}}",
@@ -59,7 +59,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
     {
         if (!await IsLoggedInAsync()) return RedirectToPage();
 
-        var url = $"http://localhost:25625/comments/{commentId.ToString()}";
+        var url = $"http://blockshop.api:25625/comments/{commentId.ToString()}";
         try
         {
             await httpClient.DeleteAsync(url);
@@ -74,7 +74,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task<IActionResult> OnPostAsync(Guid blockId)
     {
-        var url = $"http://localhost:25625/blocks/{blockId.ToString()}";
+        var url = $"http://blockshop.api:25625/blocks/{blockId.ToString()}";
         await httpClient.DeleteAsync(url);
 
         // var response = await httpClient.DeleteAsync(url);
@@ -85,7 +85,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task<IActionResult> OnPostBuyBlockAsync(Guid blockId)
     {
-        var url = $"http://localhost:25625/blocks/buy/{blockId.ToString()}";
+        var url = $"http://blockshop.api:25625/blocks/buy/{blockId.ToString()}";
         await httpClient.GetAsync(url);
 
         // var response = await httpClient.DeleteAsync(url);
@@ -97,7 +97,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task<IEnumerable<CommentResponse>> GetBlockCommentsAsync(Guid blockId)
     {
-        var request = await httpClient.GetAsync($"http://localhost:25625/blocks/{blockId}/comments?pageSize=100");
+        var request = await httpClient.GetAsync($"http://blockshop.api:25625/blocks/{blockId}/comments?pageSize=100");
         if (!request.IsSuccessStatusCode) return [];
 
         var content = await request.Content.ReadAsStreamAsync();
@@ -113,7 +113,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task<string?> GetUserEmailAsync(Guid id)
     {
-        var url = $"http://localhost:25625/user/{id}/email";
+        var url = $"http://blockshop.api:25625/user/{id}/email";
         var response = await httpClient.GetAsync(url);
         if (!response.IsSuccessStatusCode) return null;
 
@@ -127,7 +127,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
     {
         try
         {
-            var emailCheckResponse = await httpClient.GetAsync("http://localhost:25625/user/email");
+            var emailCheckResponse = await httpClient.GetAsync("http://blockshop.api:25625/user/email");
             return emailCheckResponse.IsSuccessStatusCode;
         }
         catch (Exception)
@@ -138,7 +138,7 @@ public class BlocksModel(HttpClient httpClient) : PageModel
 
     public async Task<bool> LoggedUserOwnsItemAsync(Guid creatorId)
     {
-        const string url = "http://localhost:25625/user/id";
+        const string url = "http://blockshop.api:25625/user/id";
         var response = await httpClient.GetAsync(url);
 
         if (!response.IsSuccessStatusCode) return false;

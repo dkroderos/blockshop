@@ -15,4 +15,4 @@ public record BlockResponse(
     DateTimeOffset CreatedAt,
     DateTimeOffset LastUpdatedAt);
 
-public record UpdateBlockRequest(Guid Id, string Name, string Description, string Image);    
+public record UpdateBlockRequest(Guid Id, string Name, string Description, string Image);
