@@ -7,19 +7,19 @@
         if (!response.IsSuccessStatusCode)
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-page="/login">Login</a>
+                <a class="nav-link text-light" asp-area="" asp-page="/login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-page="/register">Register</a>
+                <a class="nav-link text-light" asp-area="" asp-page="/register">Register</a>
             </li>
         }
         else
         {
             <li class="nav-item">
-                <span class="nav-link text-dark">Welcome, @(response.Content.ReadAsStringAsync().Result.Trim('"'))</span>
+                <span class="nav-link text-light">Welcome, @(response.Content.ReadAsStringAsync().Result.Trim('"'))</span>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-page="/logout">Logout</a>
+                <a class="nav-link text-light" asp-area="" asp-page="/logout">Logout</a>
             </li>
         }
     }

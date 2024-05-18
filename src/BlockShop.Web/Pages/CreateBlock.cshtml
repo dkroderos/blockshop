@@ -2,7 +2,7 @@
 @model BlockShop.Web.Pages.CreateBlockModel
 
 @{
-    ViewData["Title"] = "Create block";
+    ViewData["Title"] = "Create Block";
 }
 
 <div class="row">
@@ -25,31 +25,31 @@
         }
 
         <form method="post">
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Name</label>
-                <div class="row-sm-8">
-                    <input type="text" class="form-control" asp-for="Name"/>
+            <div class="mb-3 row">
+                <label for="Name" class="col-sm-4 col-form-label">Name</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Name" name="Name" asp-for="Name">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Image</label>
-                <div class="row-sm-8">
-                    <textarea type="text" class="form-control" asp-for="Image"></textarea>
+            <div class="mb-3 row">
+                <label for="Image" class="col-sm-4 col-form-label">Image Url</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Image" name="Image" asp-for="Image">
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Description</label>
-                <div class="row-sm-8">
-                    <textarea type="text" class="form-control" asp-for="Description"></textarea>
+            <div class="mb-3 row">
+                <label for="Description" class="col-sm-4 col-form-label">Description</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="Description" name="Description" asp-for="Description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Price</label>
-                <div class="row-sm-8">
-                    <input type="text" class="form-control" asp-for="Price"/>
+            <div class="mb-3 row">
+                <label for="Price" class="col-sm-4 col-form-label">Price</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Price" name="Price" asp-for="Price">
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
             </div>
