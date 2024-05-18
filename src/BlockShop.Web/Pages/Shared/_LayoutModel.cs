@@ -9,7 +9,7 @@ public class _LayoutModel(HttpClient httpClient) : PageModel
 
     public async Task OnGetAsync()
     {
-        const string url = "http://localhost:25624/user/email";
+        const string url = "http://blockshop.api:25624/user/email";
         var response = await httpClient.GetAsync(url);
 
         if (response.IsSuccessStatusCode)

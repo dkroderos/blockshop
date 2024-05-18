@@ -7,7 +7,7 @@ public class LogoutModel(HttpClient httpClient) : PageModel
 {
     public async Task<IActionResult> OnGetAsync()
     {
-        const string url = "http://localhost:25625/user/logout";
+        const string url = "http://blockshop.api:25625/user/logout";
         await httpClient.GetAsync(url);
 
         return RedirectToPage("/blocks");

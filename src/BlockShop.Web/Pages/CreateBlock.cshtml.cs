@@ -35,7 +35,7 @@ public class CreateBlockModel(HttpClient httpClient) : PageModel
     {
         try
         {
-            var emailCheckResponse = await httpClient.GetAsync("http://localhost:25625/user/email");
+            var emailCheckResponse = await httpClient.GetAsync("http://blockshop.api:25625/user/email");
 
             return emailCheckResponse.IsSuccessStatusCode;
         }
@@ -59,7 +59,7 @@ public class CreateBlockModel(HttpClient httpClient) : PageModel
             return Page();
         }
 
-        const string url = "http://localhost:25625/blocks";
+        const string url = "http://blockshop.api:25625/blocks";
         var jsonBody = $$"""
                          {
                             "name": "{{Name}}",

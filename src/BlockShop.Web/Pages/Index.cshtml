@@ -4,6 +4,88 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="container py-4">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <h1 class="display-4">Welcome to Block Shop</h1>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <img src="https://avatars.githubusercontent.com/u/75028710?v=4" class="card-img-top" alt="David">
+                <div class="card-body">
+                    <h5 class="card-title">David King Roderos</h5>
+                    <p class="card-text">
+                        <a href="https://github.com/dkroderos" target="_blank" class="btn btn-outline-dark mb-2">GitHub</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow">
+                <img src="https://avatars.githubusercontent.com/u/101788598?v=4" class="card-img-top" alt="Edward">
+                <div class="card-body">
+                    <h5 class="card-title">Edward Angel Lorica</h5>
+                    <p class="card-text">
+                        <a href="https://github.com/nngel" target="_blank" class="btn btn-outline-dark mb-2">GitHub</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow">
+                <img src="https://avatars.githubusercontent.com/u/142986554?v=4" class="card-img-top" alt="Aaron">
+                <div class="card-body">
+                    <h5 class="card-title">Aaron Gil Rubinos</h5>
+                    <p class="card-text">
+                        <a href="https://github.com/AaronRubinos" target="_blank" class="btn btn-outline-dark mb-2">GitHub</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Rules</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    When logged out:
+                    <ul>
+                        <li>You can view blocks</li>
+                        <li>You can register and login</li>
+                        <li>You can't create, comment, or delete blocks</li>
+                    </ul>
+                </li>
+                <li class="list-group-item">
+                    When logged in:
+                    <ul>
+                        <li>You can view and create blocks</li>
+                        <li>You can comment on a block</li>
+                        <li>You can logout</li>
+                        <li>You cannot delete blocks or comments that you don't own</li>
+                        <li>When you navigate to register or login section, you will be redirected to blocks section</li>
+                        <li>If you've been logged out automatically, it means your session is over, just log in again</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Additional Information</h3>
+            <p>We used C# and ASP.NET for the backend, but the design of the website is 100% Bootstrap.</p>
+            <p>We've containerized the application so it's easier for us to set up.</p>
+            <p>We used cookie authorization (check your cookies when logged in), meaning multiple users can log in at the same time as long as it's a different web browser.</p>
+            <p>Here is the link to the source code:</p>
+            <p>
+                <a href="https://github.com/dkroderos/blockshop" target="_blank" class="btn btn-outline-primary">View Source Code on GitHub</a>
+            </p>
+        </div>
+    </div>
 </div>

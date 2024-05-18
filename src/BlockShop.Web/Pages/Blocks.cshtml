@@ -11,6 +11,10 @@
 {
     <a class="btn btn-primary mb-3" asp-page="/CreateBlock">Create Block</a>
 }
+else
+{
+    <p>In order to create a block, buy a block, and comment on a block, please login.</p>
+}
 
 <div class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -33,18 +37,18 @@
                         @if (await Model.LoggedUserOwnsItemAsync(block.CreatorId))
                         {
                             <form method="post">
-                                <input type="hidden" name="blockId" value="@block.Id"/>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <input type="hidden" name="blockId" value="@block.Id" />
+                                <button type="submit" class="btn btn-danger me-2">Delete</button>
                             </form>
                         }
                         @if (await Model.IsLoggedInAsync())
                         {
                             <form method="post" asp-page-handler="BuyBlock">
-                                <input type="hidden" name="blockId" value="@block.Id"/>
-                                <button type="submit" class="btn btn-success">Buy</button>
+                                <input type="hidden" name="blockId" value="@block.Id" />
+                                <button type="submit" class="btn btn-success me-2">Buy</button>
                             </form>
                         }
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#blockModal-@block.Id">
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#blockModal-@block.Id">
                             View Details
                         </button>
                     </div>
@@ -67,9 +71,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-6">
-                                <!-- Display the image within a container to limit size -->
                                 <div class="text-center">
-                                    <img src="@block.Image" alt="Block Image" class="img-fluid rounded" style="max-width: 100%; max-height: 400px;"/> <!-- Added max-width and max-height -->
+                                    <img src="@block.Image" alt="Block Image" class="img-fluid rounded" style="max-width: 100%; max-height: 400px;" /> <!-- Added max-width and max-height -->
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -85,7 +88,7 @@
                                             <label for="commentContent" class="form-label">Add Comment:</label>
                                             <input type="text" class="form-control" id="commentContent" name="commentContent">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary me-2">Submit</button>
                                     </form>
                                 }
                             </div>
@@ -107,8 +110,8 @@
                                 @if (await Model.LoggedUserOwnsItemAsync(blockComment.CreatorId))
                                 {
                                     <form method="post" asp-page-handler="DeleteComment">
-                                        <input type="hidden" name="commentId" value="@blockComment.Id"/>
-                                        <button type="submit" class="btn btn-danger">Delete Comment</button>
+                                        <input type="hidden" name="commentId" value="@blockComment.Id" />
+                                        <button type="submit" class="btn btn-danger me-2">Delete Comment</button>
                                     </form>
                                 }
                             </li>

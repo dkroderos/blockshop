@@ -45,7 +45,7 @@ public class RegisterModel(HttpClient httpClient) : PageModel
             return Page();
         }
 
-        const string url = "http://localhost:25625/register";
+        const string url = "http://blockshop.api:25625/register";
         var jsonBody = $$"""
                          {
                             "email": "{{Email}}",
@@ -85,7 +85,7 @@ public class RegisterModel(HttpClient httpClient) : PageModel
     {
         try
         {
-            var emailCheckResponse = await httpClient.GetAsync("http://localhost:25625/user/email");
+            var emailCheckResponse = await httpClient.GetAsync("http://blockshop.api:25625/user/email");
 
             return emailCheckResponse.IsSuccessStatusCode;
         }
